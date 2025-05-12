@@ -13,6 +13,9 @@
    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
    <!-- Scripts -->
+
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -31,6 +34,34 @@
 
       <!-- Page Content -->
       <main class="font-rubik">
+         @if (session('success'))
+            <div class="max-w-7xl mx-auto my-6 p-4 bg-green-100 text-green-700 rounded-md shadow-md">
+               {{ session('success') }}
+            </div>
+         @endif
+
+         @if (session('error'))
+            <div class="max-w-7xl mx-auto my-6 p-4 bg-red-100 text-red-700 rounded-md shadow-md">
+               {{ session('error') }}
+            </div>
+         @endif
+
+         @if ($errors->any())
+            <div class="max-w-7xl mx-auto my-6 p-4 bg-red-100 text-red-700 rounded-md shadow-md">
+               <h3 class="font-medium">Error!</h3>
+               <ul>
+                  @foreach ($errors->all() as $error)
+                     <li>{{ $error }}</li>
+                  @endforeach
+               </ul>
+            </div>
+         @endif
+
+         @if (session('message'))
+            <div class="max-w-7xl mx-auto my-6 p-4 bg-blue-100 text-blue-700 rounded-md shadow-md">
+               {{ session('message') }}
+            </div>
+         @endif
          {{ $slot }}
       </main>
    </div>
