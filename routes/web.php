@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
@@ -20,12 +21,15 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
 
     Route::resource('products', ProductController::class)->names([
         'index' => 'products.index',
-        'create' => 'products.create',
         'store' => 'products.store',
-        'show' => 'products.show',
-        'edit' => 'products.edit',
         'update' => 'products.update',
         'destroy' => 'products.destroy',
+    ]);
+
+    Route::resource('categories', CategoryController::class)->names([
+        'store' => 'categories.store',
+        'update' => 'categories.update',
+        'destroy' => 'categories.destroy',
     ]);
 });
 
