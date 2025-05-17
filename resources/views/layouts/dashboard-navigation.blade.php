@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-200 shadow-sm px-4 xl:px-0">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-200 shadow-sm px-4 :px-0">
    <!-- Primary Navigation Menu -->
    <div class="max-w-7xl mx-auto">
       <div class="flex justify-between h-16">
@@ -88,7 +88,19 @@
    <div :class="{ 'block': open, 'hidden': !open }" class="hidden md:hidden">
       <div class="pt-2 pb-3 space-y-1">
          <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-            {{ 'Dashboard' }}
+            {{ 'Beranda' }}
+         </x-responsive-nav-link>
+         <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+            {{ 'Produk' }}
+         </x-responsive-nav-link>
+         <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            {{ 'Penjualan' }}
+         </x-responsive-nav-link>
+         <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+            {{ 'Karyawan' }}
+         </x-responsive-nav-link>
+         <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            {{ 'Pesanan' }}
          </x-responsive-nav-link>
       </div>
 

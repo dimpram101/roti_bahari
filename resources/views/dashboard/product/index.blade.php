@@ -6,7 +6,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
    </head>
 
-   <div class="max-w-7xl mx-auto">
+   <div class="max-w-7xl mx-auto px-4 xl:px-0">
       <div class="my-6 p-4 bg-white rounded-md shadow-md">
          <div class="border-b border-gray-200 mb-6">
             <nav class="flex space-x-4" aria-label="Tabs">
