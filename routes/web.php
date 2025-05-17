@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,13 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
         'store' => 'products.store',
         'update' => 'products.update',
         'destroy' => 'products.destroy',
+    ]);
+
+    Route::resource('users', UserController::class)->names([
+        'index' => 'users.index',
+        'store' => 'users.store',
+        'update' => 'users.update',
+        'destroy' => 'users.destroy',
     ]);
 
     Route::resource('categories', CategoryController::class)->names([
