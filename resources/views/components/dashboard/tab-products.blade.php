@@ -26,13 +26,15 @@
                   <td>{{ $product->description ?? '-' }}</td>
                   <td>
                      @if ($product->image)
-                        <a href="{{ asset('storage/' . $product->image) }}" target="_blank">
+                        <a href="{{ asset('storage/' . $product->image) }}" data-lightbox='product-image'>
                            <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image"
                               class="w-16 h-16 object-cover rounded-md">
                         </a>
                      @else
-                        <img src="{{ asset('images/no_image.jpeg') }}" alt="Default Image"
-                           class="w-16 h-16 object-cover rounded-md">
+                        <a href="{{ asset('images/no_image.jpeg') }}" data-lightbox='product-image'>
+                           <img src="{{ asset('images/no_image.jpeg') }}" alt="Default Image"
+                              class="w-16 h-16 object-cover rounded-md">
+                        </a>
                      @endif
                   </td>
                   <td>
