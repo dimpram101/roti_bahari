@@ -1,4 +1,4 @@
-<div id="productsTab" class="tab-content block">
+<div>
    <div class="flex flex-col sm:w-full sm:flex-row sm:justify-between sm:items-center">
       <h2 class="text-2xl font-medium text-gray-900">Daftar Produk</h2>
       <button id="addProductBtn"

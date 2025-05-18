@@ -1,4 +1,4 @@
-<div id="categoriesTab" class="tab-content hidden">
+<div>
    <div class="flex flex-col sm:w-full sm:flex-row sm:justify-between sm:items-center">
       <h2 class="text-2xl font-medium text-gray-900">Daftar Kategori</h2>
       <button id="addCategoryBtn"
@@ -11,6 +11,7 @@
             <tr>
                <th>Nama Kategori</th>
                <th>Deskripsi</th>
+               <th>Gambar</th>
                <th>Action</th>
             </tr>
          </thead>
@@ -19,6 +20,19 @@
                <tr>
                   <td>{{ $category->name }}</td>
                   <td>{{ $category->description ?? '-' }}</td>
+                  <td>
+                     @if ($category->img_url)
+                        <a href="{{ asset('storage/' . $category->img_url) }}" data-lightbox='category-image'>
+                           <img src="{{ asset('storage/' . $category->img_url) }}" alt="Product Image"
+                              class="w-16 h-16 object-cover rounded-md">
+                        </a>
+                     @else
+                        <a href="{{ asset('images/no_image.jpeg') }}" data-lightbox='category-image'>
+                           <img src="{{ asset('images/no_image.jpeg') }}" alt="Default Image"
+                              class="w-16 h-16 object-cover rounded-md">
+                        </a>
+                     @endif
+                  </td>
                   <td>
                      <div class="flex gap-2">
                         <button type="button"
@@ -40,11 +54,11 @@
 
 <!-- Modal Tambah Kategori -->
 <div id="addCategoryModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-   <div class="bg-white rounded-lg shadow-lg w-1/3">
+   <div class="bg-white rounded-lg shadow-lg">
       <div class="px-6 py-4 border-b">
          <h3 class="text-lg font-medium text-gray-900">Tambah Kategori</h3>
       </div>
-      <form id="addCategoryForm" method="POST" action="{{ route('categories.store') }}">
+      <form id="addCategoryForm" method="POST" action="{{ route('categories.store') }}" enctype="multipart/form-data">
          @csrf
          <div class="px-6 py-4">
             <div class="mb-4">
@@ -57,6 +71,11 @@
                <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Deskripsi</label>
                <textarea name="description" id="categoryDescription" rows="3"
                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"></textarea>
+            </div>
+            <div class="mb-4">
+               <label class="block text-sm font-medium text-gray-700">Gambar</label>
+               <input type="file" id="categoryImage" name="image" accept="image/*"
+                  class="mt-1 block w-full border-gray-300 rounded-md">
             </div>
          </div>
          <div class="px-6 py-4 border-t flex justify-end">
@@ -89,7 +108,7 @@
 <div id="editCategoryModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 items-center justify-center">
    <div class="bg-white p-6 rounded-md shadow-md w-full max-w-md">
       <h3 class="text-lg font-medium text-gray-900">Edit Produk</h3>
-      <form id="editCategoryForm" method="POST" action="" class="mt-4">
+      <form id="editCategoryForm" method="POST" action="" class="mt-4" enctype="multipart/form-data">
          @csrf
          {{-- @method('PUT') --}}
          <input type="hidden" name="_method" value="PUT">
@@ -102,6 +121,11 @@
             <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
             <textarea id="editCategoryDescription" name="description" rows="3"
                class="mt-1 block w-full border-gray-300 rounded-md"></textarea>
+         </div>
+         <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Gambar</label>
+            <input type="file" id="editCategoryImage" name="image" accept="image/*""
+               class="mt-1 block w-full border-gray-300 rounded-md">
          </div>
          <div class="flex justify-end gap-2">
             <button type="button" id="cancelEditCategory"

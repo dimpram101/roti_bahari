@@ -15,6 +15,7 @@ class ProductController extends Controller {
         return view('dashboard.product.index', [
             'products' => $products,
             'categories' => $categories,
+            'queries' => $request->query(),
         ]);
     }
 
