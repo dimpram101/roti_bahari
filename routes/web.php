@@ -10,8 +10,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
-    if ($request->user()) {
-        return redirect()->route('dashboard');
+    $user = $request->user();
+    if ($user) {
+        if ($user->hasRole('admin')) {
+            return redirect()->route('dashboard');
+        } elseif ($user->hasRole('user')) {
+            return redirect()->route('user.home');
+        }
     } else {
         return redirect()->route('login');
     }
@@ -56,6 +61,17 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
         'update' => 'categories.update',
         'destroy' => 'categories.destroy',
     ]);
+});
+
+Route::group(['middleware' => ['auth', 'role:user'], 'prefix' => 'user'], function () {
+    Route::get('/home', function () {
+        return view('home')->with('title', 'User Dashboard');
+    })->name('user.home');
+
+    // Route::resource('products', ProductController::class)->names([
+    //     'index' => 'user.products.index',
+    //     'show' => 'user.products.show',
+    // ]);
 });
 
 
