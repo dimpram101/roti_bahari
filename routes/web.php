@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -65,13 +66,14 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
 
 Route::group(['middleware' => ['auth', 'role:user'], 'prefix' => 'user'], function () {
     Route::get('/home', function () {
-        return view('home')->with('title', 'User Dashboard');
-    })->name('user.home');
+        $categories = Category::all();
+        $best_selling_products = Product::all();
 
-    // Route::resource('products', ProductController::class)->names([
-    //     'index' => 'user.products.index',
-    //     'show' => 'user.products.show',
-    // ]);
+        return view('home', [
+            'categories' => $categories,
+            'best_selling_products' => $best_selling_products,
+        ])->with('title', 'User Home');;
+    })->name('user.home');
 });
 
 
