@@ -4,6 +4,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +19,22 @@ Route::get('/', function (Request $request) {
 
 Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], function () {
     Route::get('/', function () {
-        return view('dashboard');
+        $users = User::with('roles')
+            ->get()
+            ->groupBy(function ($user) {
+                return $user->roles->pluck('name')->first();
+            })
+            ->map(function ($group) {
+                return $group->count();
+            });
+
+        $products = Product::all()->count();
+
+        
+        return view('dashboard.home', [
+            'users' => $users,
+            'products' => $products,
+        ])->with('title', 'Dashboard');
     })->name('dashboard');
 
     Route::resource('products', ProductController::class)->names([
@@ -49,4 +66,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

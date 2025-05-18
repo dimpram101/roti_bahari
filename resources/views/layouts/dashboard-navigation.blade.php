@@ -21,13 +21,13 @@
             <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                {{ 'Produk' }}
             </x-nav-link>
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-nav-link :href="route('dashboard')">
                {{ 'Penjualan' }}
             </x-nav-link>
             <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                {{ 'Karyawan' }}
             </x-nav-link>
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-nav-link :href="route('dashboard')">
                {{ 'Pesanan' }}
             </x-nav-link>
          </div>
@@ -93,13 +93,13 @@
          <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
             {{ 'Produk' }}
          </x-responsive-nav-link>
-         <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+         <x-responsive-nav-link :href="route('dashboard')">
             {{ 'Penjualan' }}
          </x-responsive-nav-link>
          <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
             {{ 'Karyawan' }}
          </x-responsive-nav-link>
-         <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+         <x-responsive-nav-link :href="route('dashboard')">
             {{ 'Pesanan' }}
          </x-responsive-nav-link>
       </div>

@@ -49,7 +49,7 @@ class ProfileController extends Controller
             Storage::disk('public')->delete($user->image);
         }
         $extension = $request->file('image')->getClientOriginalExtension();
-        $imageName = str_replace(' ', '_', $request->name) . '_' . date('Ymd_His') . '.' . $extension;
+        $imageName = str_replace(' ', '_', $user->name) . '_' . date('Ymd_His') . '.' . $extension;
         $imagePath = $request->file('image')->storeAs('images/user', $imageName, 'public');
         $validatedData['image'] = $imagePath;
 
