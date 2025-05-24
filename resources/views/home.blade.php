@@ -39,8 +39,13 @@
          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             @foreach ($categories as $category)
                <div class="border border-gray-300 rounded-lg bg-white p-4 shadow-md">
-                  <img src="{{ asset('storage/' . $category->img_url) }}" alt="{{ $category->name }}"
-                     class="w-full h-48 object-cover rounded-md mb-4">
+                  @if ($category->img_url == null)
+                     <img src="{{ asset('images/no_image.jpeg') }}" alt="{{ $category->name }}"
+                        class="w-full h-48 object-cover rounded-md mb-4">
+                  @else
+                     <img src="{{ asset('storage/' . $category->img_url) }}" alt="{{ $category->name }}"
+                        class="w-full h-48 object-cover rounded-md mb-4">
+                  @endif
                   <h3 class="text-xl font-semibold text-gray-800">{{ $category->name }}</h3>
                   <p class="text-gray-600 mt-2">{{ $category->description }}</p>
                </div>
@@ -64,11 +69,11 @@
                   <div class="flex-1 flex flex-col">
                      <h3 class="text-xl font-semibold text-gray-800">{{ $product->name }}</h3>
                      <p class="text-gray-600 mt-2 flex-1">{{ $product->description }}</p>
-                     <p class="text-green-500 font-bold mt-2">Harga: Rp{{ number_format($product->price, 0, ',', '.') }}
+                     <p class="text-green-500 font-bold mt-2">Harga:
+                        Rp{{ number_format($product->price, 0, ',', '.') }}
                      </p>
                   </div>
-                  <form method="POST" action="" class="mt-2">
-                     @csrf
+                  <div class="mt-2" id="product-form-{{ $product->id }}">
                      <div class="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-2">
                         <div class="flex items-center gap-2">
                            <button type="button"
@@ -83,13 +88,13 @@
                               +
                            </button>
                         </div>
-                        <button
+                        <button id="add-to-cart-{{ $product->id }}" data-id="{{ $product->id }}"
                            class="h-11 py-2 flex-1 bg-blue-500 text-center px-4 rounded-md text-white text-sm font-semibold flex items-center justify-center gap-2">
                            <i class="fas fa-shopping-cart"></i>
                            Tambah
                         </button>
                      </div>
-                  </form>
+                  </div>
 
                </div>
             @endforeach
@@ -114,6 +119,51 @@
             if (!isNaN(currentValue) && currentValue > 1) {
                input.val(currentValue - 1);
             }
+         });
+
+         // Handle "Tambah" button click
+         $('[id^="add-to-cart-"]').click(function(e) {
+            e.preventDefault();
+            const productId = $(this).data('id');
+            const quantity = $(this).closest('#product-form-' + productId)
+               .find('.quantity-input')
+               .val();
+
+            if (quantity < 1) {
+               alert('Jumlah produk tidak boleh kurang dari 1.');
+               return;
+            }
+
+            const button = $(this);
+            button.html('<i class="fas fa-spinner fa-spin"></i> Loading...');
+            button.prop('disabled', true);
+
+            $.ajax({
+               url: " {{ route('user.carts.store') }}",
+               method: 'POST',
+               data: {
+                  product_id: productId,
+                  quantity: quantity,
+                  _token: '{{ csrf_token() }}'
+               },
+               success: function(response) {
+                  button.html('<i class="fas fa-check"></i> Added!');
+                  setTimeout(function() {
+                     button.html('<i class="fas fa-shopping-cart"></i> Tambah');
+                     button.prop('disabled', false);
+                  }, 1500);
+
+                  if (response.cart_count) {
+                     $('.cart-count').text(`(${response.cart_count})`);
+                  }
+               },
+               error: function(xhr) {
+                  console.error(xhr.responseText);
+                  button.html('<i class="fas fa-shopping-cart"></i> Tambah');
+                  button.prop('disabled', false);
+                  alert('Error adding to cart. Please try again.');
+               }
+            });
          });
       });
    </script>

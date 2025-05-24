@@ -2,6 +2,8 @@
 
 namespace App\View\Components;
 
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -12,6 +14,11 @@ class AppLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.app');
+        $cart = Cart::where('user_id', Auth::user()->id)
+            ->count();
+
+        return view('layouts.app', [
+            'cart' => $cart
+        ]);
     }
 }

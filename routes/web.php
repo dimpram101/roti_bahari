@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -74,6 +75,10 @@ Route::group(['middleware' => ['auth', 'role:user'], 'prefix' => 'user'], functi
             'best_selling_products' => $best_selling_products,
         ])->with('title', 'User Home');;
     })->name('user.home');
+
+    Route::get('/carts', [CartController::class, 'index'])->name('user.carts.index');
+    Route::post('/carts', [CartController::class, 'store'])->name('user.carts.store');
+    
 });
 
 
