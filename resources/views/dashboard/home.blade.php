@@ -9,10 +9,22 @@
                   <i class="fas fa-dollar text-2xl"></i>
                </div>
                <div class="flex-1">
-                  <h3 class="text-base font-semibold text-gray-800">Pendapatan Bulan Ini</h3>
+                  <h3 class="text-base font-semibold text-gray-800">Pendapatan</h3>
                   <div class="text-sm text-gray-600 mt-1 space-y-0.5">
-                     <p>{{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
-                     <p>Jumlah: <span class="font-bold text-gray-800">Rp0</span></p>
+                     <p class="font-medium">Hari Ini: <span class="font-bold text-gray-800">
+                           @if ($income)
+                              Rp{{ number_format($income['today'], 0, ',', '.') }}
+                           @else
+                              Rp0
+                           @endif
+                        </span></p>
+                     <p class="font-medium">Bulan Ini: <span class="font-bold text-gray-800">
+                           @if ($income)
+                              Rp{{ number_format($income['monthly'], 0, ',', '.') }}
+                           @else
+                              Rp0
+                           @endif
+                        </span></p>
                   </div>
                </div>
             </div>

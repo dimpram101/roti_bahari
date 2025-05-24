@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,10 +39,16 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
 
         $products = Product::all()->count();
 
+        $todayIncome = Order::whereDate('created_at', now())->sum('total_amount');
+        $monthlyIncome = Order::whereMonth('created_at', now()->month)->sum('total_amount');
         
         return view('dashboard.home', [
             'users' => $users,
             'products' => $products,
+            'income' => [
+                'today' => $todayIncome,
+                'monthly' => $monthlyIncome,
+            ],
         ])->with('title', 'Dashboard');
     })->name('dashboard');
 
