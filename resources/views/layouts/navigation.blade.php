@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-200 shadow-sm px-4 :px-0">
+<nav x-data="{ open: false }" class="relative bg-white border-b border-gray-200 shadow-sm px-4 :px-0 sticky-nav">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto">
         <div class="flex justify-between h-16">
@@ -116,3 +116,16 @@
         </div>
     </div>
 </nav>
+
+<style>
+    .sticky-nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+    
+    /* Optional: Add transition for smooth appearance */
+    .sticky-nav {
+        transition: all 0.3s ease;
+    }
+</style>
