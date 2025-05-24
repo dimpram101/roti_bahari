@@ -78,6 +78,8 @@ Route::group(['middleware' => ['auth', 'role:user'], 'prefix' => 'user'], functi
 
     Route::get('/carts', [CartController::class, 'index'])->name('user.carts.index');
     Route::post('/carts', [CartController::class, 'store'])->name('user.carts.store');
+
+    Route::get('/products', [ProductController::class, 'userIndex'])->name('user.products.index');
     
 });
 

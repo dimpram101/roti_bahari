@@ -78,4 +78,21 @@ class ProductController extends Controller {
 
         return redirect()->route('products.index')->with('success', 'Product berhasil dihapus.');
     }
+
+    public function userIndex(Request $request) {
+        $products = Product::query();
+        $categories = Category::all();
+
+        if ($request->has('category')) {
+            $products->where('category_id', $request->input('category'));
+        }
+
+        $products = $products->get();
+
+        return view('products.index', [
+            'products' => $products,
+            'categories' => $categories,
+            'queries' => $request->query(),
+        ]);
+    }
 }
