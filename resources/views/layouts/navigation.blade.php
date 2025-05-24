@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- Cart Icon -->
-                <a href="#" class="hidden sm:flex sm:items-center text-gray-500 hover:text-gray-700">
+                <a href="{{ route('user.carts.index') }}" class="hidden sm:flex sm:items-center text-gray-500 hover:text-gray-700">
                     <i class="fas fa-shopping-cart text-lg"></i>
                     <span class="ml-1 text-sm cart-count">({{ $cart }})</span>
                 </a>
@@ -70,7 +70,7 @@
             <!-- Hamburger -->
             <div class="-me-2 flex items-center gap-2 sm:hidden">
                 <!-- Cart Icon -->
-                <a href="#" class="flex items-center sm:hidden text-gray-500 hover:text-gray-700">
+                <a href="{{ route('user.carts.index') }}" class="flex items-center sm:hidden text-gray-500 hover:text-gray-700">
                     <i class="fas fa-shopping-cart text-lg"></i>
                     <span class="ml-1 text-sm cart-count">({{ $cart }})</span>
                 </a>

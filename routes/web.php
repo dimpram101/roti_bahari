@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -76,8 +77,15 @@ Route::group(['middleware' => ['auth', 'role:user'], 'prefix' => 'user'], functi
         ])->with('title', 'User Home');;
     })->name('user.home');
 
-    Route::get('/carts', [CartController::class, 'index'])->name('user.carts.index');
-    Route::post('/carts', [CartController::class, 'store'])->name('user.carts.store');
+    Route::prefix('carts')->group(function () {
+        Route::get('/', [CartController::class, 'index'])->name('user.carts.index');
+        Route::post('/', [CartController::class, 'store'])->name('user.carts.store');
+        Route::post('/increase/{cart}', [CartController::class, 'increase'])->name('cart.increase');
+        Route::post('/decrease/{cart}', [CartController::class, 'decrease'])->name('cart.decrease');
+        Route::delete('/remove/{cart}', [CartController::class, 'remove'])->name('cart.remove');
+    });
+
+    Route::post('/orders', [OrderController::class, 'store'])->name('user.orders.store');
 
     Route::get('/products', [ProductController::class, 'userIndex'])->name('user.products.index');
     

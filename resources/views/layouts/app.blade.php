@@ -38,9 +38,53 @@
 
       <!-- Page Content -->
       <main class="font-rubik">
+         @if (session('success'))
+            <div class="max-w-7xl mx-auto mt-4 p-4 bg-green-100 text-green-700 rounded-md shadow-md relative alert">
+               <button class="absolute text-lg top-2 right-2 text-green-700 font-bold close-alert">&times;</button>
+               {{ session('success') }}
+            </div>
+         @endif
+
+         @if (session('error'))
+            <div class="max-w-7xl mx-auto mt-4 p-4 bg-red-100 text-red-700 rounded-md shadow-md relative alert">
+               <button class="absolute text-lg top-2 right-2 text-red-700 font-bold close-alert">&times;</button>
+               {{ session('error') }}
+            </div>
+         @endif
+
+         @if ($errors->any())
+            <div class="max-w-7xl mx-auto mt-4 p-4 bg-red-100 text-red-700 rounded-md shadow-md relative alert">
+               <button class="absolute text-lg top-2 right-2 text-red-700 font-bold close-alert">&times;</button>
+               <h3 class="font-medium">Error!</h3>
+               <ul>
+                  @foreach ($errors->all() as $error)
+                     <li>{{ $error }}</li>
+                  @endforeach
+               </ul>
+            </div>
+         @endif
+
+         @if (session('message'))
+            <div class="max-w-7xl mx-auto mt-4 p-4 bg-blue-100 text-blue-700 rounded-md shadow-md">
+               {{ session('message') }}
+            </div>
+         @endif
          {{ $slot }}
       </main>
    </div>
+
+
+
+   <script>
+      $(document).ready(function() {
+         $('.close-alert').on('click', function() {
+            const alertBox = $(this).parent();
+            alertBox.fadeOut(500, function() {
+               $(this).remove();
+            });
+         });
+      });
+   </script>
 </body>
 
 </html>
