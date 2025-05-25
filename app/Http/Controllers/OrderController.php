@@ -8,6 +8,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller {
+    public function index(Request $request) {
+        $orders = Order::with(['details.product', 'user']);
+
+        if ($request->has('month')) {
+            if ($request->month == 'all') {
+                $orders->whereYear('created_at', now()->year);
+            } else {
+                $orders->whereMonth('created_at', $request->month);
+            }
+        }
+
+        if ($request->has('year') && $request->year != '') {
+            $orders->whereYear('created_at', $request->year);
+        }
+
+        if (!$request->has('month') && !$request->has('year')) {
+            $orders->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year);
+        }
+
+        $orders = $orders->orderBy('created_at', 'desc')->get();
+
+        return view('dashboard.order.index', [
+            'orders' => $orders,
+        ])->with('title', 'Daftar Pesanan');
+    }
+
     public function store(Request $request) {
         $request->validate([
             'total_amount' => 'required|numeric|min:0',

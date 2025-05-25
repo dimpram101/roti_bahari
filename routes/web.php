@@ -71,6 +71,8 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
         'update' => 'categories.update',
         'destroy' => 'categories.destroy',
     ]);
+
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 });
 
 Route::group(['middleware' => ['auth', 'role:user'], 'prefix' => 'user'], function () {
