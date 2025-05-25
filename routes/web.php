@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
 
         $todayIncome = Order::whereDate('created_at', now())->sum('total_amount');
         $monthlyIncome = Order::whereMonth('created_at', now()->month)->sum('total_amount');
+        $orderCount = Order::count();
         
         return view('dashboard.home', [
             'users' => $users,
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
                 'today' => $todayIncome,
                 'monthly' => $monthlyIncome,
             ],
+            'orderCount' => $orderCount,
         ])->with('title', 'Dashboard');
     })->name('dashboard');
 

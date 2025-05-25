@@ -88,12 +88,12 @@
                <div class="flex-1">
                   <h3 class="text-base font-semibold text-gray-800">Penjualan</h3>
                   <div class="text-sm text-gray-600 mt-1">
-                     <p>Jumlah: <span class="font-bold text-gray-800">0</span></p>
+                     <p>Jumlah: <span class="font-bold text-gray-800">{{ $orderCount }}</span></p>
                   </div>
                </div>
             </div>
             <div class="mt-3 text-right">
-               <a href="{{ route('products.index') }}" class="text-sm text-yellow-600 hover:underline font-medium">
+               <a href="{{ route('orders.index') }}" class="text-sm text-yellow-600 hover:underline font-medium">
                   Selengkapnya →
                </a>
             </div>
