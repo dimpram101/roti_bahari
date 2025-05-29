@@ -19,8 +19,8 @@
                 <x-nav-link :href="route('user.products.index')" :active="request()->routeIs('user.products.index')">
                     {{ 'Produk' }}
                 </x-nav-link>
-                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ 'Pesanan' }}
+                <x-nav-link :href="route('user.message.create')" :active="request()->routeIs('user.message.create')">
+                    {{ 'Pemesanan' }}
                 </x-nav-link>
             </div>
 
@@ -94,8 +94,8 @@
             <x-responsive-nav-link :href="route('user.products.index')" :active="request()->routeIs('user.products.index')">
                 {{ 'Produk' }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ 'Pesanan' }}
+            <x-responsive-nav-link :href="route('user.message.create')" :active="request()->routeIs('user.message.create')">
+                {{ 'Pemesanan' }}
             </x-responsive-nav-link>
         </div>
 

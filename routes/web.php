@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -75,6 +76,9 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'dashboard'], 
     ]);
 
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::put('messages/{message}/toggle', [MessageController::class, 'toggleStatus'])->name('messages.toggleStatus');
+    Route::delete('messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'role:user'], 'prefix' => 'user'], function () {
@@ -99,6 +103,9 @@ Route::group(['middleware' => ['auth', 'role:user'], 'prefix' => 'user'], functi
     Route::post('/orders', [OrderController::class, 'store'])->name('user.orders.store');
 
     Route::get('/products', [ProductController::class, 'userIndex'])->name('user.products.index');
+
+    Route::get('/message', [MessageController::class, 'create'])->name('user.message.create');
+    Route::post('/message', [MessageController::class, 'store'])->name('user.message.store');
     
 });
 

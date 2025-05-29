@@ -1,4 +1,4 @@
-<x-dashboard-layout>
+<x-dashboard-layout title="Penjualan">
 
    <head>
       <link rel="stylesheet" href="https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css" />
@@ -50,7 +50,7 @@
    <div class="max-w-7xl mx-auto px-4 xl:px-0">
       <div class="my-6 p-4 bg-white rounded-md shadow-md">
          <div class="border-b border-gray-200 mb-6">
-            <h2 class="text-2xl font-medium text-gray-900 mb-6">Daftar Pesanan</h2>
+            <h2 class="text-2xl font-medium text-gray-900 mb-6">Daftar Penjualan</h2>
 
             <form action="{{ route('orders.index') }}" class="flex flex-col sm:flex-row gap-3 w-full md:w-auto mb-2">
                <div class="flex flex-col sm:flex-row gap-3">

@@ -27,7 +27,7 @@
             <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                {{ 'Karyawan' }}
             </x-nav-link>
-            <x-nav-link :href="route('dashboard')">
+            <x-nav-link :href="route('messages.index')">
                {{ 'Pesanan' }}
             </x-nav-link>
          </div>
@@ -99,7 +99,7 @@
          <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
             {{ 'Karyawan' }}
          </x-responsive-nav-link>
-         <x-responsive-nav-link :href="route('dashboard')">
+         <x-responsive-nav-link :href="route('messages.index')">
             {{ 'Pesanan' }}
          </x-responsive-nav-link>
       </div>
